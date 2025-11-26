@@ -29,4 +29,15 @@ Plugin for generating ZPL labels for Zebra printers with QR codes and barcodes f
 ```bash
 cd glpi/plugins/
 git clone https://github.com/stereosoul/glpizebralabel.git
+```
+
+## 📖 Usage
+
+    Navigate to any supported asset in GLPI
+
+    Click "Print label" button in the asset form
+
+    Choose between QR Code or Barcode label
+
+    Download ZPL file and send to your Zebra printer
 
