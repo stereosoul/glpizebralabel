@@ -36,10 +36,13 @@ git clone https://github.com/stereosoul/glpizebralabel.git
     Navigate to any supported asset in GLPI
 
     Click "Print label" button in the asset form
+    <img width="338" height="160" alt="Screenshot_2" src="https://github.com/user-attachments/assets/25d8814c-84ba-4802-a9f8-336d05f9d158" />
+
 
     Choose between QR Code or Barcode label
 
     Download ZPL file and send to your Zebra printer
+    
 ## Supported Asset Types
 
     💻 Computer
@@ -86,5 +89,6 @@ vibecoded by Aleksei Meshkov
     GitHub: @stereosoul
 
     Repository: https://github.com/stereosoul/glpizebralabel
+
 
 
