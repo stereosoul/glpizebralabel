@@ -44,6 +44,22 @@ git clone https://github.com/stereosoul/glpizebralabel.git
     Choose between QR Code or Barcode label
 
     Download ZPL file and send to your Zebra printer
+    Example of ZPL code:
+    ```
+^XA
+^CI28
+^PW559
+^LL240
+^MMT
+^FO20,20^BQN,4,4^FDQA,https://glpi.example.com/plugins/glpizebralabel/front/scan.php?itemtype=Computer&items_id=123^FS
+^FO300,55^A0N,18,15^FB259,1,0,C^FDCOMPUTER-FINANCE^FS
+^FO300,75^A0N,18,15^FB259,1,0,C^FDDEPARTMENT-05^FS
+^FO300,95^A0N,18,15^FB259,1,0,C^FDINV-2024-123^FS
+^XZ
+```
+
+<img width="440" height="192" alt="Screenshot_1" src="https://github.com/user-attachments/assets/8df1e5f4-8233-46cd-939d-7f59b3d44a2d" />
+
     
 ## Supported Asset Types
 
@@ -91,6 +107,7 @@ vibecoded by Aleksei Meshkov
     GitHub: @stereosoul
 
     Repository: https://github.com/stereosoul/glpizebralabel
+
 
 
 
