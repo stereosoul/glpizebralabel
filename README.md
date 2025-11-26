@@ -11,21 +11,12 @@ Plugin for generating ZPL labels for Zebra printers with QR codes and barcodes f
 
 - 🖨️ **Generate ZPL code** for QR codes and barcodes
 - 💾 **Support for multiple asset types**: Computers, Monitors, Network Equipment, Printers, Phones, Peripherals
-- 🌙 **Dark/Light theme support** - automatically adapts to GLPI theme
-- 🌍 **Multi-language support** - Russian and English included
 - 🔗 **Easy integration** - "Print label" button in asset forms
-- 📱 **QR codes with scan URLs** for quick inventory updates
+- 📱 **QR codes with scan URLs** for quick inventory updates (physical inventory date update by scan)
 - ⚡ **Fast generation** - instant ZPL code creation
-- 🎯 **Optimized layout** - perfect for 70x30mm labels
+- 🎯 **Optimized layout** - perfect for 70x30mm labels with 200 dpi
 
-## 📸 Preview
 
-### Print Label Interface
-![Print Label Interface](https://via.placeholder.com/800x400/2D3748/FFFFFF?text=GLPI+Zebra+Label+Print+Interface)
-
-### Generated Label Examples
-- **QR Code Label**: Large QR code + inventory number text
-- **Barcode Label**: Centered barcode + asset information
 
 ## 🚀 Installation
 
@@ -38,3 +29,4 @@ Plugin for generating ZPL labels for Zebra printers with QR codes and barcodes f
 ```bash
 cd glpi/plugins/
 git clone https://github.com/stereosoul/glpizebralabel.git
+
