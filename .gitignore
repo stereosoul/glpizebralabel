@@ -1,0 +1,24 @@
+# Compiled localization files
+*.mo
+*.cache
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# PHP
+vendor/
+composer.lock
+
+# Logs
+*.log
+
+# Temporary files
+tmp/

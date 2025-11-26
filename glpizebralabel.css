@@ -1,0 +1,71 @@
+/* CSS переменные для поддержки тем */
+.zebralabel-card {
+    background: var(--tblr-bg-surface);
+    border: 1px solid var(--tblr-border-color);
+    transition: all 0.3s ease;
+}
+
+.zebralabel-card-header {
+    background: var(--tblr-bg-surface-secondary) !important;
+    border-bottom: 1px solid var(--tblr-border-color);
+}
+
+/* УНИВЕРСАЛЬНОЕ решение для ZPL кода с гарантированной видимостью */
+.zebralabel-zpl-code {
+    background: var(--tblr-bg-surface-secondary) !important;
+    border: 1px solid var(--tblr-border-color) !important;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    color: var(--tblr-body-color) !important;
+}
+
+/* Резервное решение на случай проблем с CSS переменными */
+.zebralabel-zpl-code pre {
+    color: inherit !important;
+    background: transparent !important;
+    margin: 0;
+}
+
+/* Явные стили для светлой темы */
+@media (prefers-color-scheme: light) {
+    .zebralabel-zpl-code {
+        background: #f8f9fa !important;
+        color: #212529 !important;
+        border-color: #dee2e6 !important;
+    }
+}
+
+/* Явные стили для темной темы */
+@media (prefers-color-scheme: dark) {
+    .zebralabel-zpl-code {
+        background: #2d3748 !important;
+        color: #e9ecef !important;
+        border-color: #4a5568 !important;
+    }
+}
+
+.zebralabel-info-box {
+    background: var(--tblr-bg-surface-tertiary);
+    border-left: 4px solid var(--tblr-primary);
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 0 4px 4px 0;
+    color: var(--tblr-body-color);
+}
+
+/* Адаптивные кнопки */
+.btn-outline-custom {
+    background: var(--tblr-bg-surface);
+    border-color: var(--tblr-border-color);
+    color: var(--tblr-body-color);
+}
+
+.btn-outline-custom:hover {
+    background: var(--tblr-bg-surface-secondary);
+    border-color: var(--tblr-primary);
+}

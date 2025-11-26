@@ -1,0 +1,106 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GLPI Zebra Label Plugin 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 12:00+0300\n"
+"PO-Revision-Date: 2024-01-01 12:00+0300\n"
+"Last-Translator: CAN <can@example.com>\n"
+"Language-Team: English <can@example.com>\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Zebra Label"
+msgstr "Zebra Label"
+
+msgid "Print label"
+msgstr "Print label"
+
+msgid "Print label for this item"
+msgstr "Print label for this item"
+
+msgid "Invalid parameters"
+msgstr "Invalid parameters"
+
+msgid "Unsupported item type"
+msgstr "Unsupported item type"
+
+msgid "Invalid item type"
+msgstr "Invalid item type"
+
+msgid "Object not found"
+msgstr "Object not found"
+
+msgid "Failed to generate label"
+msgstr "Failed to generate label"
+
+msgid "Asset information"
+msgstr "Asset information"
+
+msgid "QR Code Label"
+msgstr "QR Code Label"
+
+msgid "QR code contains scan URL for inventory updates"
+msgstr "QR code contains scan URL for inventory updates"
+
+msgid "Show ZPL code"
+msgstr "Show ZPL code"
+
+msgid "Download QR ZPL"
+msgstr "Download QR ZPL"
+
+msgid "Barcode Label"
+msgstr "Barcode Label"
+
+msgid "Barcode contains inventory number for quick scanning"
+msgstr "Barcode contains inventory number for quick scanning"
+
+msgid "Download Barcode ZPL"
+msgstr "Download Barcode ZPL"
+
+msgid "How to use"
+msgstr "How to use"
+
+msgid "Click \"Download ZPL\" to save the label file"
+msgstr "Click \"Download ZPL\" to save the label file"
+
+msgid "Transfer the .zpl file to your computer"
+msgstr "Transfer the .zpl file to your computer"
+
+msgid "Send the file to Zebra printer using any method:"
+msgstr "Send the file to Zebra printer using any method:"
+
+msgid "Print via network (lpr command)"
+msgstr "Print via network (lpr command)"
+
+msgid "Copy to shared folder"
+msgstr "Copy to shared folder"
+
+msgid "Use Zebra printer software"
+msgstr "Use Zebra printer software"
+
+msgid "Back to asset"
+msgstr "Back to asset"
+
+msgid "Date of last physical inventory updated: %s"
+msgstr "Date of last physical inventory updated: %s"
+
+msgid "Error updating physical inventory date"
+msgstr "Error updating physical inventory date"
+
+msgid "Zebra Label Configuration"
+msgstr "Zebra Label Configuration"
+
+msgid "Printer IP Address"
+msgstr "Printer IP Address"
+
+msgid "Printer Port"
+msgstr "Printer Port"
+
+msgid "Label Width (mm)"
+msgstr "Label Width (mm)"
+
+msgid "Label Height (mm)"
+msgstr "Label Height (mm)"
