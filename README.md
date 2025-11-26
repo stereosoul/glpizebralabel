@@ -45,7 +45,6 @@ git clone https://github.com/stereosoul/glpizebralabel.git
 
     Download ZPL file and send to your Zebra printer
     Example of ZPL code:
-    ```
 ^XA
 ^CI28
 ^PW559
@@ -56,7 +55,7 @@ git clone https://github.com/stereosoul/glpizebralabel.git
 ^FO300,75^A0N,18,15^FB259,1,0,C^FDDEPARTMENT-05^FS
 ^FO300,95^A0N,18,15^FB259,1,0,C^FDINV-2024-123^FS
 ^XZ
-```
+
 
 <img width="440" height="192" alt="Screenshot_1" src="https://github.com/user-attachments/assets/8df1e5f4-8233-46cd-939d-7f59b3d44a2d" />
 
@@ -107,6 +106,7 @@ vibecoded by Aleksei Meshkov
     GitHub: @stereosoul
 
     Repository: https://github.com/stereosoul/glpizebralabel
+
 
 
 
