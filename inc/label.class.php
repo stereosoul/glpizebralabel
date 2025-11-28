@@ -56,26 +56,26 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
         $zpl .= "^PW{$width_pts}\n"; // Label width
         $zpl .= "^LL{$height_pts}\n"; // Label length
         $zpl .= "^MMT\n";      // Print mode Tear-off
-        
+
         // УВЕЛИЧЕННЫЙ QR код слева
         $qr_size = 4;
         $qr_x = 20;
         $qr_y = 20;
-        
+
         $zpl .= "^FO{$qr_x},{$qr_y}^BQN,{$qr_size},4^FDQA,{$scan_url}^FS\n";
 
         // Текст справа с ОПТИМИЗИРОВАННЫМ ШРИФТОМ (меньше и менее жирный)
         if (!empty($otherserial)) {
             $display_inv = self::sanitizeZPL($otherserial);
-            
+
             // Максимальная ширина текстовой области: 559 - 300 = 259 точек
             $max_chars_per_line = 20; // Немного увеличил из-за меньшего шрифта
-            
+
             // Умный перенос - разбиваем по словам если возможно
             $lines = self::splitTextIntoLines($display_inv, $max_chars_per_line);
-            
+
             $text_x = 300; // Фиксированная позиция справа
-            
+
             // Распределяем строки по вертикали с ОПТИМИЗИРОВАННЫМ ШРИФТОМ
             if (count($lines) == 1) {
                 // Одна строка - крупный, но не жирный шрифт
@@ -104,7 +104,7 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
     }
 
     /**
-     * Генерация ZPL для штрихкода (ИСПРАВЛЕННАЯ - правильная ширина и центрирование)
+     * Генерация ZPL для штрихкода (НОВЫЙ ФОРМАТ - как в примере)
      */
     static function generateBarcodeZPL($itemtype, $items_id) {
         $item = new $itemtype();
@@ -114,7 +114,7 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
 
         // Фиксированные размеры этикетки
         $width_pts = 559;  // 559 точек (максимум для 70mm)
-        $height_pts = 30 * 8; // 240 точек
+        $height_pts = 240; // 240 точек (30mm)
 
         $name = $item->fields['name'] ?? 'N/A';
         $serial = $item->fields['serial'] ?? 'N/A';
@@ -130,39 +130,37 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
         $zpl .= "^LL{$height_pts}\n"; // Label length
         $zpl .= "^MMT\n";      // Print mode Tear-off
 
-        // УМЕНЬШЕННЫЙ штрихкод по центру с большими отступами
-        $barcode_height = 35;  // Уменьшил высоту
-        $barcode_x = 50;       // Отступ слева
-        $barcode_y = 10;       // Отступ сверху
+        // ШТРИХКОД по новому формату
+        $barcode_x = 50;
+        $barcode_y = 15;
+        $barcode_height = 80;
 
-        $zpl .= "^FO{$barcode_x},{$barcode_y}^BCN,{$barcode_height},Y,N,N^FD" . self::sanitizeZPL($barcode_data) . "^FS\n";
+        $zpl .= "^FO{$barcode_x},{$barcode_y}^BY2,2,{$barcode_height}^BCN,,Y,N,N^FD" . self::sanitizeZPL($barcode_data) . "^FS\n";
 
-        // Текст под штрихкодом с БОЛЬШИМ отступом и центрированием
-        $current_y = $barcode_y + $barcode_height + 35; // Увеличил отступ до 35 точек
+        // ТЕКСТ под штрихкодом по новому формату
+        $text_y1 = 140;
+        $text_y2 = 165;
 
-        // Первая строка: ID и название (центрированная)
-        $display_name = self::sanitizeZPL($name);
-        if (strlen($display_name) > 20) {
-            $display_name = substr($display_name, 0, 20);
+        // Формируем текст для ID
+        $id_text = "ID: {$id} " . self::sanitizeZPL($name);
+        // Обрезаем если слишком длинный
+        if (strlen($id_text) > 35) {
+            $id_text = substr($id_text, 0, 35);
         }
-        $id_text = "id:{$id} {$display_name}";
-        $text_width = strlen($id_text) * 10; // Примерная ширина текста
-        $text_x = max(10, ($width_pts - $text_width) / 2); // Центрируем
-        $zpl .= "^FO{$text_x},{$current_y}^A0N,18,18^FD" . self::sanitizeZPL($id_text) . "^FS\n";
-        $current_y += 22;
 
-        // Вторая строка: серийный номер (центрированная)
+        $zpl .= "^FO{$barcode_x},{$text_y1}^A0N,22,22^FD" . $id_text . "^FS\n";
+
+        // Формируем текст для серийного номера
         if (!empty($serial)) {
-            $display_serial = self::sanitizeZPL($serial);
-            if (strlen($display_serial) > 25) {
-                $display_serial = substr($display_serial, 0, 25);
+            $serial_text = "SN: " . self::sanitizeZPL($serial);
+            // Обрезаем если слишком длинный
+            if (strlen($serial_text) > 35) {
+                $serial_text = substr($serial_text, 0, 35);
             }
-            $serial_text = "sn:{$display_serial}";
-            $serial_width = strlen($serial_text) * 10;
-            $serial_x = max(10, ($width_pts - $serial_width) / 2); // Центрируем
-            $zpl .= "^FO{$serial_x},{$current_y}^A0N,18,18^FD" . self::sanitizeZPL($serial_text) . "^FS\n";
+            $zpl .= "^FO{$barcode_x},{$text_y2}^A0N,22,22^FD" . $serial_text . "^FS\n";
         }
 
+        $zpl .= "^PQ1,0,1,Y\n"; // Настройки печати
         $zpl .= "^XZ\n";       // End label
 
         return $zpl;
@@ -175,7 +173,7 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
         $words = explode(' ', $text);
         $lines = [];
         $current_line = '';
-        
+
         foreach ($words as $word) {
             // Если добавление слова не превышает лимит
             if (strlen($current_line . ' ' . $word) <= $max_chars_per_line) {
@@ -197,12 +195,12 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
                 }
             }
         }
-        
+
         // Добавляем последнюю строку
         if (!empty($current_line)) {
             $lines[] = $current_line;
         }
-        
+
         // Ограничиваем максимум 3 строками
         return array_slice($lines, 0, 3);
     }
@@ -212,10 +210,10 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
      */
     static function getScanUrl($itemtype, $items_id) {
         global $CFG_GLPI;
-        
+
         $base_url = rtrim($CFG_GLPI['url_base'], '/');
         $plugin_path = ltrim(Plugin::getWebDir('glpizebralabel', false), '/');
-        
+
         return $base_url . '/' . $plugin_path . "/front/scan.php?itemtype=$itemtype&items_id=$items_id";
     }
 
@@ -226,7 +224,7 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
         if (empty($string)) {
             return 'N/A';
         }
-        
+
         // Экранируем все специальные символы ZPL
         $special_chars = ['^', '~', '\\', '_', '`', '{', '}', '[', ']', '|', '<', '>'];
         $replacements = [
@@ -240,15 +238,15 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
             '[' => '(',
             ']' => ')',
             '|' => 'I',    // Замена вертикальной черты
-            '<' => '(',
+            '<' => '(',    // Замена угловых скобок
             '>' => ')'
         ];
-        
+
         $string = str_replace(array_keys($replacements), array_values($replacements), $string);
-        
+
         // Удаляем непечатаемые символы
         $string = preg_replace('/[^\x20-\x7E]/', '', $string);
-        
+
         return trim($string);
     }
 }
