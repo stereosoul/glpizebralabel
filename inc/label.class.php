@@ -35,7 +35,7 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
     }
 
     /**
-     * Генерация ZPL для QR-кода (QR слева увеличенный, текст справа с оптимизированным шрифтом)
+     * Генерация ZPL для QR-кода (КОМПАКТНЫЙ ВАРИАНТ - QR слева, текст справа)
      */
     static function generateQRZPL($itemtype, $items_id) {
         $item = new $itemtype();
@@ -43,68 +43,63 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
             return false;
         }
 
-        // Фиксированные размеры этикетки (70x30mm в точках: 8 точек на мм)
-        $width_pts = 559;  // 559 точек (максимум для 70mm)
-        $height_pts = 30 * 8; // 240 точек
+        $width_pts = 559;
+        $height_pts = 240;
 
-        $scan_url = self::getScanUrl($itemtype, $items_id);
+        $name = $item->fields['name'] ?? 'N/A';
+        $serial = $item->fields['serial'] ?? 'N/A';
         $otherserial = $item->fields['otherserial'] ?? 'N/A';
+        $id = $item->fields['id'];
+        $scan_url = self::getScanUrl($itemtype, $items_id);
 
-        // Корректный ZPL код
-        $zpl = "^XA\n";        // Start label
-        $zpl .= "^CI28\n";     // UTF-8 encoding
-        $zpl .= "^PW{$width_pts}\n"; // Label width
-        $zpl .= "^LL{$height_pts}\n"; // Label length
-        $zpl .= "^MMT\n";      // Print mode Tear-off
+        $zpl = "^XA\n";
+        $zpl .= "^CI28\n";
+        $zpl .= "^PW{$width_pts}\n";
+        $zpl .= "^LL{$height_pts}\n";
+        $zpl .= "^MMT\n";
 
-        // УВЕЛИЧЕННЫЙ QR код слева
-        $qr_size = 4;
+        // QR слева (компактный)
         $qr_x = 20;
         $qr_y = 20;
+        $zpl .= "^FO{$qr_x},{$qr_y}^BQN,4,3^FDQA,{$scan_url}^FS\n";
 
-        $zpl .= "^FO{$qr_x},{$qr_y}^BQN,{$qr_size},4^FDQA,{$scan_url}^FS\n";
+        // Текст справа от QR - три строки
+        $text_x = 220;
+        $text_y1 = 40;
+        $text_y2 = 65;
+        $text_y3 = 90;
 
-        // Текст справа с ОПТИМИЗИРОВАННЫМ ШРИФТОМ (меньше и менее жирный)
-        if (!empty($otherserial)) {
-            $display_inv = self::sanitizeZPL($otherserial);
+        // ID и название
+        $id_text = "ID: {$id} " . self::sanitizeZPL($name);
+        if (strlen($id_text) > 25) {
+            $id_text = substr($id_text, 0, 25);
+        }
+        $zpl .= "^FO{$text_x},{$text_y1}^A0N,22,22^FD" . $id_text . "^FS\n";
 
-            // Максимальная ширина текстовой области: 559 - 300 = 259 точек
-            $max_chars_per_line = 20; // Немного увеличил из-за меньшего шрифта
+        // Инвентарный номер
+        $inv_text = "INV: " . self::sanitizeZPL($otherserial ?: 'N/A');
+        if (strlen($inv_text) > 25) {
+            $inv_text = substr($inv_text, 0, 25);
+        }
+        $zpl .= "^FO{$text_x},{$text_y2}^A0N,22,22^FD" . $inv_text . "^FS\n";
 
-            // Умный перенос - разбиваем по словам если возможно
-            $lines = self::splitTextIntoLines($display_inv, $max_chars_per_line);
-
-            $text_x = 300; // Фиксированная позиция справа
-
-            // Распределяем строки по вертикали с ОПТИМИЗИРОВАННЫМ ШРИФТОМ
-            if (count($lines) == 1) {
-                // Одна строка - крупный, но не жирный шрифт
-                $text_y = 75;
-                $zpl .= "^FO{$text_x},{$text_y}^A0N,26,20^FB259,1,0,C^FD{$lines[0]}^FS\n";
-            } else if (count($lines) == 2) {
-                // Две строки - средний шрифт
-                $text_y1 = 65;
-                $text_y2 = 90;
-                $zpl .= "^FO{$text_x},{$text_y1}^A0N,22,18^FB259,1,0,C^FD{$lines[0]}^FS\n";
-                $zpl .= "^FO{$text_x},{$text_y2}^A0N,22,18^FB259,1,0,C^FD{$lines[1]}^FS\n";
-            } else if (count($lines) >= 3) {
-                // Три и более строк - компактный шрифт
-                $text_y_start = 55;
-                $line_height = 20;
-                foreach ($lines as $i => $line) {
-                    $text_y = $text_y_start + ($i * $line_height);
-                    $zpl .= "^FO{$text_x},{$text_y}^A0N,18,15^FB259,1,0,C^FD{$line}^FS\n";
-                }
+        // Серийный номер
+        if (!empty($serial)) {
+            $serial_text = "SN: " . self::sanitizeZPL($serial);
+            if (strlen($serial_text) > 25) {
+                $serial_text = substr($serial_text, 0, 25);
             }
+            $zpl .= "^FO{$text_x},{$text_y3}^A0N,22,22^FD" . $serial_text . "^FS\n";
         }
 
-        $zpl .= "^XZ\n";       // End label
+        $zpl .= "^PQ1,0,1,Y\n";
+        $zpl .= "^XZ\n";
 
         return $zpl;
     }
 
     /**
-     * Генерация ZPL для штрихкода (НОВЫЙ ФОРМАТ - как в примере)
+     * Генерация ZPL для штрихкода (НОВЫЙ ФОРМАТ)
      */
     static function generateBarcodeZPL($itemtype, $items_id) {
         $item = new $itemtype();
