@@ -1,43 +1,93 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GLPI Zebra Label Plugin 1.0.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-01 12:00+0300\n"
-"PO-Revision-Date: 2024-01-01 12:00+0300\n"
-"Last-Translator: CAN <can@example.com>\n"
-"Language-Team: English <can@example.com>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Zebra Label Configuration"
+msgstr "Zebra Label Configuration"
 
 msgid "Zebra Label"
 msgstr "Zebra Label"
 
-msgid "Print label"
-msgstr "Print label"
-
 msgid "Print label for this item"
 msgstr "Print label for this item"
 
-msgid "Invalid parameters"
-msgstr "Invalid parameters"
+msgid "Print label"
+msgstr "Print label"
 
-msgid "Unsupported item type"
-msgstr "Unsupported item type"
+msgid "Zebra Printer Configuration"
+msgstr "Zebra Printer Configuration"
 
-msgid "Invalid item type"
-msgstr "Invalid item type"
+msgid "Printer IP Address"
+msgstr "Printer IP Address"
 
-msgid "Object not found"
-msgstr "Object not found"
+msgid "Printer Port"
+msgstr "Printer Port"
 
-msgid "Failed to generate label"
-msgstr "Failed to generate label"
+msgid "Label Width (mm)"
+msgstr "Label Width (mm)"
 
-msgid "Asset information"
-msgstr "Asset information"
+msgid "Label Height (mm)"
+msgstr "Label Height (mm)"
+
+msgid "Test Printer Connection"
+msgstr "Test Printer Connection"
+
+msgid "Testing..."
+msgstr "Testing..."
+
+msgid "Printer is accessible"
+msgstr "Printer is accessible"
+
+msgid "Printer is not accessible"
+msgstr "Printer is not accessible"
+
+msgid "Test request failed"
+msgstr "Test request failed"
+
+msgid "Print Barcode Directly"
+msgstr "Print Barcode Directly"
+
+msgid "Print QR Directly"
+msgstr "Print QR Directly"
+
+msgid "Sending to printer..."
+msgstr "Sending to printer..."
+
+msgid "Printing..."
+msgstr "Printing..."
+
+msgid "Label sent successfully!"
+msgstr "Label sent successfully!"
+
+msgid "Print error:"
+msgstr "Print error:"
+
+msgid "Network error:"
+msgstr "Network error:"
+
+msgid "bytes"
+msgstr "bytes"
+
+msgid "Or click \"Print Directly\" to send directly to configured printer"
+msgstr "Or click \"Print Directly\" to send directly to configured printer"
+
+msgid "For manual printing, transfer the .zpl file and send to Zebra printer using any method:"
+msgstr "For manual printing, transfer the .zpl file and send to Zebra printer using any method:"
+
+msgid "Print via network (lpr command)"
+msgstr "Print via network (lpr command)"
+
+msgid "Copy to shared folder"
+msgstr "Copy to shared folder"
+
+msgid "Use Zebra printer software"
+msgstr "Use Zebra printer software"
+
+msgid "Plugin for generating ZPL labels for Zebra printers with QR codes and barcodes"
+msgstr "Plugin for generating ZPL labels for Zebra printers with QR codes and barcodes"
 
 msgid "QR Code Label"
 msgstr "QR Code Label"
@@ -66,23 +116,20 @@ msgstr "How to use"
 msgid "Click \"Download ZPL\" to save the label file"
 msgstr "Click \"Download ZPL\" to save the label file"
 
-msgid "Transfer the .zpl file to your computer"
-msgstr "Transfer the .zpl file to your computer"
-
-msgid "Send the file to Zebra printer using any method:"
-msgstr "Send the file to Zebra printer using any method:"
-
-msgid "Print via network (lpr command)"
-msgstr "Print via network (lpr command)"
-
-msgid "Copy to shared folder"
-msgstr "Copy to shared folder"
-
-msgid "Use Zebra printer software"
-msgstr "Use Zebra printer software"
+msgid "Asset information"
+msgstr "Asset information"
 
 msgid "Back to asset"
 msgstr "Back to asset"
+
+msgid "Invalid parameters"
+msgstr "Invalid parameters"
+
+msgid "Object not found"
+msgstr "Object not found"
+
+msgid "Failed to generate label"
+msgstr "Failed to generate label"
 
 msgid "Date of last physical inventory updated: %s"
 msgstr "Date of last physical inventory updated: %s"
@@ -90,17 +137,8 @@ msgstr "Date of last physical inventory updated: %s"
 msgid "Error updating physical inventory date"
 msgstr "Error updating physical inventory date"
 
-msgid "Zebra Label Configuration"
-msgstr "Zebra Label Configuration"
+msgid "Unsupported item type"
+msgstr "Unsupported item type"
 
-msgid "Printer IP Address"
-msgstr "Printer IP Address"
-
-msgid "Printer Port"
-msgstr "Printer Port"
-
-msgid "Label Width (mm)"
-msgstr "Label Width (mm)"
-
-msgid "Label Height (mm)"
-msgstr "Label Height (mm)"
+msgid "Invalid item type"
+msgstr "Invalid item type"

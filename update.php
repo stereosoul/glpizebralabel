@@ -8,3 +8,4 @@ function plugin_glpizebralabel_update($current_version) {
     
     return true;
 }
+?>

@@ -23,8 +23,19 @@ function plugin_init_glpizebralabel() {
                 'PluginGlpizebralabelLabel',
                 'postItemForm'
             ];
+
+            // Хук для отображения вкладки в конфигурации
+            if (Session::haveRight("config", UPDATE)) {
+                $PLUGIN_HOOKS['config_page']['glpizebralabel'] = 'front/config.form.php';
+            }
         }
     }
+
+    // Загрузка локалей
+    $PLUGIN_HOOKS['post_init']['glpizebralabel'] = function() {
+        bindtextdomain('glpizebralabel', Plugin::getPhpDir('glpizebralabel') . '/locales');
+        textdomain('glpizebralabel');
+    };
 }
 
 function plugin_version_glpizebralabel() {
@@ -59,14 +70,4 @@ function plugin_glpizebralabel_check_prerequisites() {
 
 function plugin_glpizebralabel_check_config($verbose = false) {
     return true;
-}
-
-// Функция для загрузки локалей
-function plugin_glpizebralabel_get_add_data() {
-    return [
-        'translations' => [
-            'ru_RU' => '/locales/ru_RU.mo',
-            'en_GB' => '/locales/en_GB.mo'
-        ]
-    ];
 }

@@ -35,20 +35,6 @@ if (!$zpl_qr || !$zpl_barcode) {
 $title = __('Print label', 'glpizebralabel');
 Html::header($title, $_SERVER['PHP_SELF'], 'assets', $itemtype, $items_id);
 
-// Принудительная загрузка переводов плагина
-$plugin = new Plugin();
-if ($plugin->isActivated('glpizebralabel')) {
-    // Перезагружаем переводы для текущей локали
-    $locale = $_SESSION['glpilanguage'] ?? 'en_GB';
-    $translations = plugin_glpizebralabel_get_add_data();
-    if (isset($translations['translations'][$locale])) {
-        $mo_file = GLPI_ROOT . '/plugins/glpizebralabel' . $translations['translations'][$locale];
-        if (file_exists($mo_file)) {
-            // GLPI автоматически загрузит переводы при вызове __() с доменом
-        }
-    }
-}
-
 ?>
 <style>
 .zebralabel-zpl-code {
@@ -87,6 +73,13 @@ if ($plugin->isActivated('glpizebralabel')) {
 .btn-outline-custom:hover {
     background: var(--tblr-bg-surface-secondary);
     border-color: var(--tblr-primary);
+}
+.print-direct-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+#print-status .alert {
+    transition: all 0.3s ease;
 }
 
 /* Гарантия видимости в любых условиях */
@@ -157,6 +150,9 @@ if ($plugin->isActivated('glpizebralabel')) {
                 <a href='data:text/plain;charset=utf-8,<?= urlencode($zpl_qr) ?>' download='qr_<?= $itemtype ?>_<?= $items_id ?>.zpl' class='btn btn-success'>
                     <i class='fas fa-download me-1'></i><?= __('Download QR ZPL', 'glpizebralabel') ?>
                 </a>
+                <button type='button' class='btn btn-primary print-direct-btn' data-label-type='qr'>
+                    <i class='fas fa-print me-1'></i><?= __('Print QR Directly', 'glpizebralabel') ?>
+                </button>
             </div>
         </div>
     </div>
@@ -186,6 +182,9 @@ if ($plugin->isActivated('glpizebralabel')) {
                 <a href='data:text/plain;charset=utf-8,<?= urlencode($zpl_barcode) ?>' download='barcode_<?= $itemtype ?>_<?= $items_id ?>.zpl' class='btn btn-success'>
                     <i class='fas fa-download me-1'></i><?= __('Download Barcode ZPL', 'glpizebralabel') ?>
                 </a>
+                <button type='button' class='btn btn-primary print-direct-btn' data-label-type='barcode'>
+                    <i class='fas fa-print me-1'></i><?= __('Print Barcode Directly', 'glpizebralabel') ?>
+                </button>
             </div>
         </div>
     </div>
@@ -193,13 +192,21 @@ if ($plugin->isActivated('glpizebralabel')) {
 
 </div>
 
+<!-- Область для отображения статуса печати -->
+<div id='print-status' class='mt-4' style='display: none;'>
+    <div class='alert alert-info'>
+        <i class='fas fa-sync fa-spin me-2'></i>
+        <span id='print-status-text'><?= __('Sending to printer...', 'glpizebralabel') ?></span>
+    </div>
+</div>
+
 <!-- Инструкция / Instructions -->
 <div class='alert alert-warning mt-4'>
     <h5 class='alert-heading'><i class='fas fa-lightbulb me-2'></i><?= __('How to use', 'glpizebralabel') ?></h5>
     <ol class='mb-0'>
         <li><?= __('Click "Download ZPL" to save the label file', 'glpizebralabel') ?></li>
-        <li><?= __('Transfer the .zpl file to your computer', 'glpizebralabel') ?></li>
-        <li><?= __('Send the file to Zebra printer using any method:', 'glpizebralabel') ?>
+        <li><?= __('Or click "Print Directly" to send directly to configured printer', 'glpizebralabel') ?></li>
+        <li><?= __('For manual printing, transfer the .zpl file and send to Zebra printer using any method:', 'glpizebralabel') ?>
             <ul>
                 <li><?= __('Print via network (lpr command)', 'glpizebralabel') ?></li>
                 <li><?= __('Copy to shared folder', 'glpizebralabel') ?></li>
@@ -220,5 +227,71 @@ if ($plugin->isActivated('glpizebralabel')) {
 </div>
 </div>
 
+<script>
+$(document).ready(function() {
+    $('.print-direct-btn').on('click', function() {
+        var button = $(this);
+        var labelType = button.data('label-type');
+        var originalText = button.html();
+        
+        // Показываем статус
+        $('#print-status').show();
+        $('#print-status-text').text('<?= __('Sending to printer...', 'glpizebralabel') ?>');
+        
+        // Блокируем кнопки
+        $('.print-direct-btn').prop('disabled', true);
+        button.html('<i class="fas fa-spinner fa-spin me-1"></i><?= __('Printing...', 'glpizebralabel') ?>');
+        
+        // Отправляем запрос на печать
+        $.ajax({
+            url: '<?= Plugin::getWebDir('glpizebralabel') ?>/front/print_direct.php',
+            type: 'POST',
+            data: {
+                action: 'print',
+                itemtype: '<?= $itemtype ?>',
+                items_id: '<?= $items_id ?>',
+                label_type: labelType
+            },
+            success: function(response) {
+                if (response.success) {
+                    $('#print-status-text').html(
+                        '<i class="fas fa-check text-success me-2"></i>' +
+                        '<?= __('Label sent successfully!', 'glpizebralabel') ?>' +
+                        ' (' + response.bytes_sent + ' <?= __('bytes', 'glpizebralabel') ?>)'
+                    );
+                    $('#print-status .alert').removeClass('alert-info').addClass('alert-success');
+                    
+                    // Автоматически скрываем через 3 секунды
+                    setTimeout(function() {
+                        $('#print-status').fadeOut();
+                    }, 3000);
+                } else {
+                    $('#print-status-text').html(
+                        '<i class="fas fa-exclamation-triangle text-danger me-2"></i>' +
+                        '<?= __('Print error:', 'glpizebralabel') ?> ' + response.error
+                    );
+                    $('#print-status .alert').removeClass('alert-info').addClass('alert-danger');
+                }
+            },
+            error: function(xhr, status, error) {
+                $('#print-status-text').html(
+                    '<i class="fas fa-exclamation-triangle text-danger me-2"></i>' +
+                    '<?= __('Network error:', 'glpizebralabel') ?> ' + error
+                );
+                $('#print-status .alert').removeClass('alert-info').addClass('alert-danger');
+            },
+            complete: function() {
+                // Восстанавливаем кнопки
+                setTimeout(function() {
+                    $('.print-direct-btn').prop('disabled', false);
+                    button.html(originalText);
+                }, 2000);
+            }
+        });
+    });
+});
+</script>
+
 <?php
 Html::footer();
+?>

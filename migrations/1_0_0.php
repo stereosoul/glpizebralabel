@@ -46,3 +46,4 @@ class PluginGlpizebralabelMigration_1_0_0 extends Migration {
         }
     }
 }
+?>

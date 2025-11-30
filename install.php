@@ -8,3 +8,4 @@ function plugin_glpizebralabel_install() {
     
     return true;
 }
+?>

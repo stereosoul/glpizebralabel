@@ -50,24 +50,3 @@ function plugin_glpizebralabel_uninstall() {
 
     return true;
 }
-
-// Функция для принудительной загрузки переводов
-function plugin_glpizebralabel_load_translations() {
-    global $TRANSLATIONS;
-    
-    $plugin = new Plugin();
-    if ($plugin->isActivated('glpizebralabel')) {
-        $locale = $_SESSION['glpilanguage'] ?? 'en_GB';
-        $translations = plugin_glpizebralabel_get_add_data();
-        
-        if (isset($translations['translations'][$locale])) {
-            $mo_file = GLPI_ROOT . '/plugins/glpizebralabel' . $translations['translations'][$locale];
-            if (file_exists($mo_file)) {
-                // GLPI автоматически загрузит переводы при использовании домена 'glpizebralabel'
-            }
-        }
-    }
-}
-
-// Загружаем переводы при инициализации
-plugin_glpizebralabel_load_translations();

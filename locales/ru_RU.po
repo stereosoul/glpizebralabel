@@ -1,97 +1,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GLPI Zebra Label Plugin 1.0.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-01 12:00+0300\n"
-"PO-Revision-Date: 2024-01-01 12:00+0300\n"
-"Last-Translator: CAN <can@example.com>\n"
-"Language-Team: Russian <can@example.com>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Zebra Label Configuration"
+msgstr "Конфигурация Zebra Label"
 
 msgid "Zebra Label"
-msgstr "Zebra этикетка"
+msgstr "Zebra Label"
+
+msgid "Print label for this item"
+msgstr "Печать этикетки для этого объекта"
 
 msgid "Print label"
 msgstr "Печать этикетки"
 
-msgid "Print label for this item"
-msgstr "Напечатать этикетку для этого объекта"
-
-msgid "Invalid parameters"
-msgstr "Неверные параметры"
-
-msgid "Unsupported item type"
-msgstr "Неподдерживаемый тип объекта"
-
-msgid "Invalid item type"
-msgstr "Неверный тип объекта"
-
-msgid "Object not found"
-msgstr "Объект не найден"
-
-msgid "Failed to generate label"
-msgstr "Ошибка генерации этикетки"
-
-msgid "Asset information"
-msgstr "Информация об активе"
-
-msgid "QR Code Label"
-msgstr "QR-код этикетка"
-
-msgid "QR code contains scan URL for inventory updates"
-msgstr "QR-код содержит URL для сканирования и обновления инвентаризации"
-
-msgid "Show ZPL code"
-msgstr "Показать ZPL код"
-
-msgid "Download QR ZPL"
-msgstr "Скачать QR ZPL"
-
-msgid "Barcode Label"
-msgstr "Штрихкод этикетка"
-
-msgid "Barcode contains inventory number for quick scanning"
-msgstr "Штрихкод содержит инвентарный номер для быстрого сканирования"
-
-msgid "Download Barcode ZPL"
-msgstr "Скачать штрихкод ZPL"
-
-msgid "How to use"
-msgstr "Как использовать"
-
-msgid "Click \"Download ZPL\" to save the label file"
-msgstr "Нажмите \"Скачать ZPL\" для сохранения файла этикетки"
-
-msgid "Transfer the .zpl file to your computer"
-msgstr "Перенесите .zpl файл на ваш компьютер"
-
-msgid "Send the file to Zebra printer using any method:"
-msgstr "Отправьте файл на принтер Zebra любым способом:"
-
-msgid "Print via network (lpr command)"
-msgstr "Печать по сети (команда lpr)"
-
-msgid "Copy to shared folder"
-msgstr "Копирование в общую папку"
-
-msgid "Use Zebra printer software"
-msgstr "Использование ПО принтера Zebra"
-
-msgid "Back to asset"
-msgstr "Назад к активу"
-
-msgid "Date of last physical inventory updated: %s"
-msgstr "Дата последней физической инвентаризации обновлена: %s"
-
-msgid "Error updating physical inventory date"
-msgstr "Ошибка обновления даты физической инвентаризации"
-
-msgid "Zebra Label Configuration"
-msgstr "Конфигурация Zebra этикеток"
+msgid "Zebra Printer Configuration"
+msgstr "Настройка принтера Zebra"
 
 msgid "Printer IP Address"
 msgstr "IP-адрес принтера"
@@ -104,3 +31,114 @@ msgstr "Ширина этикетки (мм)"
 
 msgid "Label Height (mm)"
 msgstr "Высота этикетки (мм)"
+
+msgid "Test Printer Connection"
+msgstr "Проверить подключение к принтеру"
+
+msgid "Testing..."
+msgstr "Проверка..."
+
+msgid "Printer is accessible"
+msgstr "Принтер доступен"
+
+msgid "Printer is not accessible"
+msgstr "Принтер недоступен"
+
+msgid "Test request failed"
+msgstr "Ошибка тестового запроса"
+
+msgid "Print Barcode Directly"
+msgstr "Печатать штрих-код напрямую"
+
+msgid "Print QR Directly"
+msgstr "Печатать QR-код напрямую"
+
+msgid "Sending to printer..."
+msgstr "Отправка на принтер..."
+
+msgid "Printing..."
+msgstr "Печать..."
+
+msgid "Label sent successfully!"
+msgstr "Этикетка успешно отправлена!"
+
+msgid "Print error:"
+msgstr "Ошибка печати:"
+
+msgid "Network error:"
+msgstr "Сетевая ошибка:"
+
+msgid "bytes"
+msgstr "байт"
+
+msgid "Or click \"Print Directly\" to send directly to configured printer"
+msgstr "Или нажмите \"Печатать напрямую\" для отправки на настроенный принтер"
+
+msgid "For manual printing, transfer the .zpl file and send to Zebra printer using any method:"
+msgstr "Для ручной печати перенесите .zpl файл и отправьте на принтер Zebра любым способом:"
+
+msgid "Print via network (lpr command)"
+msgstr "Печать по сети (команда lpr)"
+
+msgid "Copy to shared folder"
+msgstr "Копирование в общую папку"
+
+msgid "Use Zebra printer software"
+msgstr "Использование ПО Zebra"
+
+msgid "Plugin for generating ZPL labels for Zebra printers with QR codes and barcodes"
+msgstr "Плагин для генерации ZPL этикеток для принтеров Zebra с QR-кодами и штрих-кодами"
+
+msgid "QR Code Label"
+msgstr "QR-код этикетка"
+
+msgid "QR code contains scan URL for inventory updates"
+msgstr "QR-код содержит ссылку для сканирования и обновления инвентаризации"
+
+msgid "Show ZPL code"
+msgstr "Показать ZPL код"
+
+msgid "Download QR ZPL"
+msgstr "Скачать QR ZPL"
+
+msgid "Barcode Label"
+msgstr "Штрих-код этикетка"
+
+msgid "Barcode contains inventory number for quick scanning"
+msgstr "Штрих-код содержит инвентарный номер для быстрого сканирования"
+
+msgid "Download Barcode ZPL"
+msgstr "Скачать штрих-код ZPL"
+
+msgid "How to use"
+msgstr "Как использовать"
+
+msgid "Click \"Download ZPL\" to save the label file"
+msgstr "Нажмите \"Скачать ZPL\" чтобы сохранить файл этикетки"
+
+msgid "Asset information"
+msgstr "Информация об активе"
+
+msgid "Back to asset"
+msgstr "Назад к активу"
+
+msgid "Invalid parameters"
+msgstr "Неверные параметры"
+
+msgid "Object not found"
+msgstr "Объект не найден"
+
+msgid "Failed to generate label"
+msgstr "Не удалось сгенерировать этикетку"
+
+msgid "Date of last physical inventory updated: %s"
+msgstr "Дата последней физической инвентаризации обновлена: %s"
+
+msgid "Error updating physical inventory date"
+msgstr "Ошибка обновления даты физической инвентаризации"
+
+msgid "Unsupported item type"
+msgstr "Неподдерживаемый тип объекта"
+
+msgid "Invalid item type"
+msgstr "Неверный тип объекта"
