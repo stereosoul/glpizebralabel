@@ -2,7 +2,7 @@
 
 ![GLPI Zebra Label](https://img.shields.io/badge/GLPI-Плагин-orange)
 ![Лицензия](https://img.shields.io/badge/Лицензия-GPL--3.0--or--later-blue)
-![Версия](https://img.shields.io/badge/Версия-1.0.0-green)
+![Версия](https://img.shields.io/badge/Версия-1.0.1-green)
 ![GLPI Версия](https://img.shields.io/badge/GLPI-11.0.0+-success)
 
 Плагин для генерации ZPL этикеток для принтеров Zebra с QR-кодами и штрихкодами для активов GLPI.
@@ -93,6 +93,7 @@ vibecoded by Aleksei Meshkov
     GitHub: @stereosoul
 
     Репозиторий: https://github.com/stereosoul/glpizebralabel
+
 
 
 
