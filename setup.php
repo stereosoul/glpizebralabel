@@ -1,5 +1,5 @@
 <?php
-define('PLUGIN_GLPIZEBRALABEL_VERSION', '1.0.1');
+define('PLUGIN_GLPIZEBRALABEL_VERSION', '1.0.2');
 define('PLUGIN_GLPIZEBRALABEL_MIN_GLPI', '11.0.0');
 define('PLUGIN_GLPIZEBRALABEL_MAX_GLPI', '11.99.99');
 
@@ -12,8 +12,7 @@ function plugin_init_glpizebralabel() {
     if (Plugin::isPluginActive('glpizebralabel')) {
         
         if (Session::getLoginUserID()) {
-            // Регистрируем только нужные классы
-            Plugin::registerClass('PluginGlpizebralabelConfig');
+            // Регистрируем только класс для этикеток
             Plugin::registerClass('PluginGlpizebralabelLabel', [
                 'addtabon' => ['Computer', 'Monitor', 'NetworkEquipment', 'Printer', 'Phone', 'Peripheral']
             ]);
@@ -23,11 +22,6 @@ function plugin_init_glpizebralabel() {
                 'PluginGlpizebralabelLabel',
                 'postItemForm'
             ];
-
-            // Хук для отображения вкладки в конфигурации
-            if (Session::haveRight("config", UPDATE)) {
-                $PLUGIN_HOOKS['config_page']['glpizebralabel'] = 'front/config.form.php';
-            }
         }
     }
 
@@ -71,3 +65,4 @@ function plugin_glpizebralabel_check_prerequisites() {
 function plugin_glpizebralabel_check_config($verbose = false) {
     return true;
 }
+?>

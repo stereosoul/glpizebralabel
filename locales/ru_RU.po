@@ -142,3 +142,17 @@ msgstr "Неподдерживаемый тип объекта"
 
 msgid "Invalid item type"
 msgstr "Неверный тип объекта"
+msgid "Printer ready"
+msgstr "Принтер готов"
+
+msgid "Connection failed"
+msgstr "Ошибка подключения"
+
+msgid "Invalid response from server"
+msgstr "Неверный ответ от сервера"
+
+msgid "Connection test failed"
+msgstr "Тест подключения не удался"
+
+msgid "Some tests have warnings"
+msgstr "Некоторые тесты имеют предупреждения"

@@ -27,9 +27,19 @@ if ($_POST['action'] ?? '' === 'print') {
         exit;
     }
     
-    // Получаем настройки принтера из конфигурации
-    $config = new PluginGlpizebralabelConfig();
-    $printer_config = $config->getConfig();
+    // Получаем настройки принтера от пользователя
+    $printer_ip = $_POST['printer_ip'] ?? '';
+    $printer_port = (int)($_POST['printer_port'] ?? 9100);
+    
+    if (empty($printer_ip)) {
+        echo json_encode(['success' => false, 'error' => 'Printer IP is required']);
+        exit;
+    }
+    
+    $printer_config = [
+        'printer_ip' => $printer_ip,
+        'printer_port' => $printer_port
+    ];
     
     // Отправляем на принтер
     $result = PluginGlpizebralabelLabel::sendToPrinter($zpl, $printer_config);

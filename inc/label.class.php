@@ -52,11 +52,14 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
         $id = $item->fields['id'];
         $scan_url = self::getScanUrl($itemtype, $items_id);
 
-        $zpl = "^XA\n";
-        $zpl .= "^CI28\n";
-        $zpl .= "^PW{$width_pts}\n";
-        $zpl .= "^LL{$height_pts}\n";
-        $zpl .= "^MMT\n";
+        $zpl = "^XA\n";        // Start label
+        $zpl .= "^JUS\n";      // Reset all settings to default
+        $zpl .= "^LRN\n";      // Reverse print = No
+        $zpl .= "^CI28\n";     // UTF-8 encoding
+        $zpl .= "^PW{$width_pts}\n"; // Label width
+        $zpl .= "^LL{$height_pts}\n"; // Label length
+        $zpl .= "^MMT\n";      // Print mode Tear-off
+        $zpl .= "^PON\n";      // Print orientation Normal
 
         // QR слева (компактный)
         $qr_x = 20;
@@ -120,10 +123,13 @@ class PluginGlpizebralabelLabel extends CommonDBTM {
         $barcode_data = !empty($otherserial) ? $otherserial : "GLPI-$itemtype-$id";
 
         $zpl = "^XA\n";        // Start label
+        $zpl .= "^JUS\n";      // Reset all settings to default
+        $zpl .= "^LRN\n";      // Reverse print = No
         $zpl .= "^CI28\n";     // UTF-8 encoding
         $zpl .= "^PW{$width_pts}\n"; // Label width
         $zpl .= "^LL{$height_pts}\n"; // Label length
         $zpl .= "^MMT\n";      // Print mode Tear-off
+        $zpl .= "^PON\n";      // Print orientation Normal
 
         // ШТРИХКОД по новому формату
         $barcode_x = 50;

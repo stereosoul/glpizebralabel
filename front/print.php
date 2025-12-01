@@ -124,6 +124,38 @@ Html::header($title, $_SERVER['PHP_SELF'], 'assets', $itemtype, $items_id);
     </table>
 </div>
 
+<!-- Настройки принтера (упрощенные) -->
+<div class='card mb-4 zebralabel-card'>
+    <div class='card-header text-white' style='background: var(--tblr-info);'>
+        <h5 class='card-title mb-0'><i class='fas fa-print me-2'></i><?= __('Printer Settings', 'glpizebralabel') ?></h5>
+    </div>
+    <div class='card-body'>
+        <div class='zebralabel-info-box' style='border-left-color: var(--tblr-info);'>
+            <i class='fas fa-info-circle me-2' style='color: var(--tblr-info);'></i>
+            <?= __('Enter your Zebra printer IP address and port for direct printing', 'glpizebralabel') ?>
+        </div>
+        
+        <div class='row g-3 mt-2'>
+            <div class='col-md-6'>
+                <label class='form-label'><?= __('Printer IP', 'glpizebralabel') ?></label>
+                <input type='text' id='global-printer-ip' class='form-control' placeholder='192.168.1.100' value='192.168.1.100'>
+                <small class='form-text text-muted'><?= __('Example: 192.168.1.100 or zebra-printer.local', 'glpizebralabel') ?></small>
+            </div>
+            <div class='col-md-6'>
+                <label class='form-label'><?= __('Port', 'glpizebralabel') ?></label>
+                <input type='number' id='global-printer-port' class='form-control' placeholder='9100' value='9100' min='1' max='65535'>
+                <small class='form-text text-muted'><?= __('Default port for Zebra printers is 9100', 'glpizebralabel') ?></small>
+            </div>
+        </div>
+        
+        <div class='alert alert-warning mt-3'>
+            <i class='fas fa-exclamation-triangle me-2'></i>
+            <strong><?= __('Note:', 'glpizebralabel') ?></strong>
+            <?= __('The printer must be accessible from the GLPI server. If printing fails, check firewall settings and network connectivity.', 'glpizebralabel') ?>
+        </div>
+    </div>
+</div>
+
 <div class='row'>
 
 <!-- QR код -->
@@ -145,9 +177,9 @@ Html::header($title, $_SERVER['PHP_SELF'], 'assets', $itemtype, $items_id);
                 </summary>
                 <div class='zebralabel-zpl-code mt-2'><?= htmlspecialchars($zpl_qr) ?></div>
             </details>
-
+            
             <div class='d-grid gap-2'>
-                <a href='data:text/plain;charset=utf-8,<?= urlencode($zpl_qr) ?>' download='qr_<?= $itemtype ?>_<?= $items_id ?>.zpl' class='btn btn-success'>
+                <a href='data:text/plain;charset=utf-8,<?= $zpl_qr ?>' download='qr_<?= $itemtype ?>_<?= $items_id ?>.zpl' class='btn btn-success'>
                     <i class='fas fa-download me-1'></i><?= __('Download QR ZPL', 'glpizebralabel') ?>
                 </a>
                 <button type='button' class='btn btn-primary print-direct-btn' data-label-type='qr'>
@@ -179,7 +211,7 @@ Html::header($title, $_SERVER['PHP_SELF'], 'assets', $itemtype, $items_id);
             </details>
 
             <div class='d-grid gap-2'>
-                <a href='data:text/plain;charset=utf-8,<?= urlencode($zpl_barcode) ?>' download='barcode_<?= $itemtype ?>_<?= $items_id ?>.zpl' class='btn btn-success'>
+                <a href='data:text/plain;charset=utf-8,<?= $zpl_barcode ?>' download='barcode_<?= $itemtype ?>_<?= $items_id ?>.zpl' class='btn btn-success'>
                     <i class='fas fa-download me-1'></i><?= __('Download Barcode ZPL', 'glpizebralabel') ?>
                 </a>
                 <button type='button' class='btn btn-primary print-direct-btn' data-label-type='barcode'>
@@ -204,13 +236,15 @@ Html::header($title, $_SERVER['PHP_SELF'], 'assets', $itemtype, $items_id);
 <div class='alert alert-warning mt-4'>
     <h5 class='alert-heading'><i class='fas fa-lightbulb me-2'></i><?= __('How to use', 'glpizebralabel') ?></h5>
     <ol class='mb-0'>
-        <li><?= __('Click "Download ZPL" to save the label file', 'glpizebralabel') ?></li>
-        <li><?= __('Or click "Print Directly" to send directly to configured printer', 'glpizebralabel') ?></li>
-        <li><?= __('For manual printing, transfer the .zpl file and send to Zebra printer using any method:', 'glpizebralabel') ?>
+        <li><?= __('Enter the IP address and port of your Zebra printer', 'glpizebralabel') ?></li>
+        <li><?= __('Click "Download ZPL" to save the label file for manual printing', 'glpizebralabel') ?></li>
+        <li><?= __('Or click "Print Directly" to send label directly to the printer', 'glpizebralabel') ?></li>
+        <li><?= __('Status of the print job will be shown below', 'glpizebralabel') ?></li>
+        <li><?= __('For manual printing, you can:', 'glpizebralabel') ?>
             <ul>
-                <li><?= __('Print via network (lpr command)', 'glpizebralabel') ?></li>
-                <li><?= __('Copy to shared folder', 'glpizebralabel') ?></li>
-                <li><?= __('Use Zebra printer software', 'glpizebralabel') ?></li>
+                <li><?= __('Use command: <code>lpr -S [printer_ip] -P raw [file.zpl]</code>', 'glpizebralabel') ?></li>
+                <li><?= __('Copy .zpl file to printer shared folder', 'glpizebralabel') ?></li>
+                <li><?= __('Use Zebra Setup Utilities software', 'glpizebralabel') ?></li>
             </ul>
         </li>
     </ol>
@@ -229,14 +263,38 @@ Html::header($title, $_SERVER['PHP_SELF'], 'assets', $itemtype, $items_id);
 
 <script>
 $(document).ready(function() {
+    // Код для печати
     $('.print-direct-btn').on('click', function() {
         var button = $(this);
         var labelType = button.data('label-type');
         var originalText = button.html();
         
+        // Получаем настройки принтера
+        var printerIp = $('#global-printer-ip').val().trim();
+        var printerPort = $('#global-printer-port').val().trim();
+        
+        // Проверяем настройки принтера
+        if (!printerIp) {
+            $('#print-status').show();
+            $('#print-status-text').html(
+                '<i class="fas fa-exclamation-triangle text-danger me-2"></i>' +
+                '<?= __('Please enter printer IP address', 'glpizebralabel') ?>'
+            );
+            $('#print-status .alert').removeClass('alert-info').addClass('alert-danger');
+            return;
+        }
+        
+        if (!printerPort) {
+            printerPort = 9100; // Значение по умолчанию
+        }
+        
         // Показываем статус
         $('#print-status').show();
-        $('#print-status-text').text('<?= __('Sending to printer...', 'glpizebralabel') ?>');
+        $('#print-status-text').html(
+            '<i class="fas fa-sync fa-spin me-2"></i>' +
+            '<?= __('Sending to printer...', 'glpizebralabel') ?>' +
+            ' <small>(' + printerIp + ':' + printerPort + ')</small>'
+        );
         
         // Блокируем кнопки
         $('.print-direct-btn').prop('disabled', true);
@@ -250,44 +308,65 @@ $(document).ready(function() {
                 action: 'print',
                 itemtype: '<?= $itemtype ?>',
                 items_id: '<?= $items_id ?>',
-                label_type: labelType
+                label_type: labelType,
+                printer_ip: printerIp,
+                printer_port: printerPort
             },
             success: function(response) {
                 if (response.success) {
                     $('#print-status-text').html(
                         '<i class="fas fa-check text-success me-2"></i>' +
-                        '<?= __('Label sent successfully!', 'glpizebralabel') ?>' +
-                        ' (' + response.bytes_sent + ' <?= __('bytes', 'glpizebralabel') ?>)'
+                        '<strong><?= __('Label sent successfully!', 'glpizebralabel') ?></strong>' +
+                        ' <small>(' + response.bytes_sent + ' <?= __('bytes', 'glpizebralabel') ?>)</small>'
                     );
                     $('#print-status .alert').removeClass('alert-info').addClass('alert-success');
                     
-                    // Автоматически скрываем через 3 секунды
+                    // Автоматически скрываем через 5 секунд
                     setTimeout(function() {
                         $('#print-status').fadeOut();
-                    }, 3000);
+                    }, 5000);
                 } else {
                     $('#print-status-text').html(
                         '<i class="fas fa-exclamation-triangle text-danger me-2"></i>' +
-                        '<?= __('Print error:', 'glpizebralabel') ?> ' + response.error
+                        '<strong><?= __('Print error:', 'glpizebralabel') ?></strong> ' + 
+                        (response.error || '<?= __('Unknown error', 'glpizebralabel') ?>')
                     );
                     $('#print-status .alert').removeClass('alert-info').addClass('alert-danger');
+                    
+                    // Не скрываем автоматически при ошибке
                 }
             },
             error: function(xhr, status, error) {
                 $('#print-status-text').html(
                     '<i class="fas fa-exclamation-triangle text-danger me-2"></i>' +
-                    '<?= __('Network error:', 'glpizebralabel') ?> ' + error
+                    '<strong><?= __('Network error:', 'glpizebralabel') ?></strong> ' + 
+                    (error || '<?= __('Cannot connect to server', 'glpizebralabel') ?>')
                 );
                 $('#print-status .alert').removeClass('alert-info').addClass('alert-danger');
             },
             complete: function() {
-                // Восстанавливаем кнопки
+                // Восстанавливаем кнопки через 2 секунды
                 setTimeout(function() {
                     $('.print-direct-btn').prop('disabled', false);
                     button.html(originalText);
                 }, 2000);
             }
         });
+    });
+    
+    // Автофокус на поле IP при загрузке страницы
+    $('#global-printer-ip').focus();
+    
+    // Обработка нажатия Enter в полях ввода
+    $('#global-printer-ip, #global-printer-port').keypress(function(e) {
+        if (e.which === 13) { // Enter
+            e.preventDefault();
+            // Если есть активная кнопка печати, нажимаем ее
+            var activePrintButton = $('.print-direct-btn').first();
+            if (activePrintButton.length && !activePrintButton.prop('disabled')) {
+                activePrintButton.click();
+            }
+        }
     });
 });
 </script>
