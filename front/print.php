@@ -81,6 +81,10 @@ Html::header($title, $_SERVER['PHP_SELF'], 'assets', $itemtype, $items_id);
 #print-status .alert {
     transition: all 0.3s ease;
 }
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
 
 /* Гарантия видимости в любых условиях */
 .zebralabel-zpl-code pre {
@@ -124,7 +128,7 @@ Html::header($title, $_SERVER['PHP_SELF'], 'assets', $itemtype, $items_id);
     </table>
 </div>
 
-<!-- Настройки принтера (упрощенные) -->
+<!-- Настройки принтера (с сохранением в cookies) -->
 <div class='card mb-4 zebralabel-card'>
     <div class='card-header text-white' style='background: var(--tblr-info);'>
         <h5 class='card-title mb-0'><i class='fas fa-print me-2'></i><?= __('Printer Settings', 'glpizebralabel') ?></h5>
@@ -132,18 +136,18 @@ Html::header($title, $_SERVER['PHP_SELF'], 'assets', $itemtype, $items_id);
     <div class='card-body'>
         <div class='zebralabel-info-box' style='border-left-color: var(--tblr-info);'>
             <i class='fas fa-info-circle me-2' style='color: var(--tblr-info);'></i>
-            <?= __('Enter your Zebra printer IP address and port for direct printing', 'glpizebralabel') ?>
+            <?= __('Enter your Zebra printer IP address and port', 'glpizebralabel') ?>
         </div>
         
         <div class='row g-3 mt-2'>
             <div class='col-md-6'>
                 <label class='form-label'><?= __('Printer IP', 'glpizebralabel') ?></label>
-                <input type='text' id='global-printer-ip' class='form-control' placeholder='192.168.1.100' value='192.168.1.100'>
+                <input type='text' id='global-printer-ip' class='form-control' placeholder='192.168.1.100'>
                 <small class='form-text text-muted'><?= __('Example: 192.168.1.100 or zebra-printer.local', 'glpizebralabel') ?></small>
             </div>
             <div class='col-md-6'>
                 <label class='form-label'><?= __('Port', 'glpizebralabel') ?></label>
-                <input type='number' id='global-printer-port' class='form-control' placeholder='9100' value='9100' min='1' max='65535'>
+                <input type='number' id='global-printer-port' class='form-control' placeholder='9100' min='1' max='65535'>
                 <small class='form-text text-muted'><?= __('Default port for Zebra printers is 9100', 'glpizebralabel') ?></small>
             </div>
         </div>
@@ -263,6 +267,62 @@ Html::header($title, $_SERVER['PHP_SELF'], 'assets', $itemtype, $items_id);
 
 <script>
 $(document).ready(function() {
+    // Функция для чтения cookie
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    
+    // Функция для установки cookie (на 30 дней)
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
+    }
+    
+    // Загрузка сохраненных настроек из cookies
+    function loadSavedSettings() {
+        var savedIp = getCookie('zebra_printer_ip');
+        var savedPort = getCookie('zebra_printer_port');
+        
+        if (savedIp) {
+            $('#global-printer-ip').val(savedIp);
+        } else {
+            // Значение по умолчанию
+            $('#global-printer-ip').val('192.168.1.100');
+        }
+        
+        if (savedPort) {
+            $('#global-printer-port').val(savedPort);
+        } else {
+            // Значение по умолчанию
+            $('#global-printer-port').val('9100');
+        }
+    }
+    
+    // Сохранение настроек в cookies
+    function saveSettings() {
+        var ip = $('#global-printer-ip').val().trim();
+        var port = $('#global-printer-port').val().trim();
+        
+        if (ip) {
+            setCookie('zebra_printer_ip', ip, 30);
+        }
+        if (port) {
+            setCookie('zebra_printer_port', port, 30);
+        }
+    }
+    
     // Код для печати
     $('.print-direct-btn').on('click', function() {
         var button = $(this);
@@ -275,18 +335,16 @@ $(document).ready(function() {
         
         // Проверяем настройки принтера
         if (!printerIp) {
-            $('#print-status').show();
-            $('#print-status-text').html(
-                '<i class="fas fa-exclamation-triangle text-danger me-2"></i>' +
-                '<?= __('Please enter printer IP address', 'glpizebralabel') ?>'
-            );
-            $('#print-status .alert').removeClass('alert-info').addClass('alert-danger');
+            showTempAlert('<?= __('Please enter printer IP address', 'glpizebralabel') ?>', 'danger');
             return;
         }
         
         if (!printerPort) {
             printerPort = 9100; // Значение по умолчанию
         }
+        
+        // Сохраняем настройки в cookies перед печатью
+        saveSettings();
         
         // Показываем статус
         $('#print-status').show();
@@ -354,6 +412,32 @@ $(document).ready(function() {
         });
     });
     
+    // Всплывающее уведомление
+    function showTempAlert(message, type) {
+        var alertClass = 'alert-' + (type || 'info');
+        var alertHtml = '<div class="alert ' + alertClass + ' alert-dismissible fade show" role="alert">' +
+                       message +
+                       '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+                       '</div>';
+        
+        var $alert = $(alertHtml);
+        $('#print-status').before($alert);
+        
+        // Автоматическое скрытие через 3 секунды
+        setTimeout(function() {
+            $alert.alert('close');
+        }, 3000);
+    }
+    
+    // Сохраняем настройки при изменении полей (с задержкой)
+    var saveTimeout;
+    $('#global-printer-ip, #global-printer-port').on('input', function() {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(function() {
+            saveSettings();
+        }, 1000); // Сохраняем через 1 секунду после окончания ввода
+    });
+    
     // Автофокус на поле IP при загрузке страницы
     $('#global-printer-ip').focus();
     
@@ -368,6 +452,9 @@ $(document).ready(function() {
             }
         }
     });
+    
+    // Загружаем сохраненные настройки при загрузке страницы
+    loadSavedSettings();
 });
 </script>
 
