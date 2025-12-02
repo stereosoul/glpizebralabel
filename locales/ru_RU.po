@@ -75,7 +75,7 @@ msgid "Or click \"Print Directly\" to send directly to configured printer"
 msgstr "Или нажмите \"Печатать напрямую\" для отправки на настроенный принтер"
 
 msgid "For manual printing, transfer the .zpl file and send to Zebra printer using any method:"
-msgstr "Для ручной печати перенесите .zpl файл и отправьте на принтер Zebра любым способом:"
+msgstr "Для ручной печати перенесите .zpl файл и отправьте на принтер Zebra любым способом:"
 
 msgid "Print via network (lpr command)"
 msgstr "Печать по сети (команда lpr)"
@@ -142,6 +142,7 @@ msgstr "Неподдерживаемый тип объекта"
 
 msgid "Invalid item type"
 msgstr "Неверный тип объекта"
+
 msgid "Printer ready"
 msgstr "Принтер готов"
 
@@ -156,3 +157,57 @@ msgstr "Тест подключения не удался"
 
 msgid "Some tests have warnings"
 msgstr "Некоторые тесты имеют предупреждения"
+
+msgid "Enter your Zebra printer IP address and port for direct printing"
+msgstr "Введите IP-адрес и порт вашего принтера Zebra для прямой печати"
+
+msgid "Note:"
+msgstr "Примечание:"
+
+msgid "The printer must be accessible from the GLPI server. If printing fails, check firewall settings and network connectivity."
+msgstr "Принтер должен быть доступен с сервера GLPI. Если печать не удается, проверьте настройки брандмауэра и сетевое подключение."
+
+msgid "Enter the IP address and port of your Zebra printer"
+msgstr "Введите IP-адрес и порт вашего принтера Zebra"
+
+msgid "Click \"Download ZPL\" to save the label file for manual printing"
+msgstr "Нажмите \"Скачать ZPL\" для сохранения файла этикетки для ручной печати"
+
+msgid "Or click \"Print Directly\" to send label directly to the printer"
+msgstr "Или нажмите \"Печатать напрямую\" для отправки этикетки прямо на принтер"
+
+msgid "Status of the print job will be shown below"
+msgstr "Статус задания печати будет показан ниже"
+
+msgid "For manual printing, you can:"
+msgstr "Для ручной печати вы можете:"
+
+msgid "Use command: <code>lpr -S [printer_ip] -P raw [file.zpl]</code>"
+msgstr "Использовать команду: <code>lpr -S [printer_ip] -P raw [file.zpl]</code>"
+
+msgid "Copy .zpl file to printer shared folder"
+msgstr "Скопировать .zpl файл в общую папку принтера"
+
+msgid "Use Zebra Setup Utilities software"
+msgstr "Использовать ПО Zebra Setup Utilities"
+
+msgid "Printer Settings"
+msgstr "Настройки принтера"
+
+msgid "Example: 192.168.1.100 or zebra-printer.local"
+msgstr "Пример: 192.168.1.100 или zebra-printer.local"
+
+msgid "Default port for Zebra printers is 9100"
+msgstr "Стандартный порт для принтеров Zebra - 9100"
+
+msgid "Enter your Zebra printer IP address and port"
+msgstr "Введите IP-адрес и порт вашего принтера Zebra"
+
+msgid "Please enter printer IP address"
+msgstr "Пожалуйста, введите IP-адрес принтера"
+
+msgid "Unknown error"
+msgstr "Неизвестная ошибка"
+
+msgid "Cannot connect to server"
+msgstr "Не удается подключиться к серверу"

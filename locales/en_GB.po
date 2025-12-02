@@ -1,202 +1,213 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GLPI Zebra Label Plugin 1.0.0\n"
-"Language: ru_RU\n"
+"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
 msgid "Zebra Label Configuration"
-msgstr "Конфигурация Zebra Label"
+msgstr "Zebra Label Configuration"
 
 msgid "Zebra Label"
 msgstr "Zebra Label"
 
 msgid "Print label for this item"
-msgstr "Печать этикетки для этого объекта"
+msgstr "Print label for this item"
 
 msgid "Print label"
-msgstr "Печать этикетки"
+msgstr "Print label"
 
 msgid "Zebra Printer Configuration"
-msgstr "Настройка принтера Zebra"
+msgstr "Zebra Printer Configuration"
 
 msgid "Printer IP Address"
-msgstr "IP-адрес принтера"
+msgstr "Printer IP Address"
 
 msgid "Printer Port"
-msgstr "Порт принтера"
+msgstr "Printer Port"
 
 msgid "Label Width (mm)"
-msgstr "Ширина этикетки (мм)"
+msgstr "Label Width (mm)"
 
 msgid "Label Height (mm)"
-msgstr "Высота этикетки (мм)"
+msgstr "Label Height (mm)"
 
 msgid "Test Printer Connection"
-msgstr "Проверить подключение к принтеру"
+msgstr "Test Printer Connection"
 
 msgid "Testing..."
-msgstr "Проверка..."
+msgstr "Testing..."
 
 msgid "Printer is accessible"
-msgstr "Принтер доступен"
+msgstr "Printer is accessible"
 
 msgid "Printer is not accessible"
-msgstr "Принтер недоступен"
+msgstr "Printer is not accessible"
 
 msgid "Test request failed"
-msgstr "Ошибка тестового запроса"
+msgstr "Test request failed"
 
 msgid "Print Barcode Directly"
-msgstr "Печатать штрих-код напрямую"
+msgstr "Print Barcode Directly"
 
 msgid "Print QR Directly"
-msgstr "Печатать QR-код напрямую"
+msgstr "Print QR Directly"
 
 msgid "Sending to printer..."
-msgstr "Отправка на принтер..."
+msgstr "Sending to printer..."
 
 msgid "Printing..."
-msgstr "Печать..."
+msgstr "Printing..."
 
 msgid "Label sent successfully!"
-msgstr "Этикетка успешно отправлена!"
+msgstr "Label sent successfully!"
 
 msgid "Print error:"
-msgstr "Ошибка печати:"
+msgstr "Print error:"
 
 msgid "Network error:"
-msgstr "Сетевая ошибка:"
+msgstr "Network error:"
 
 msgid "bytes"
-msgstr "байт"
+msgstr "bytes"
 
 msgid "Or click \"Print Directly\" to send directly to configured printer"
-msgstr "Или нажмите \"Печатать напрямую\" для отправки на настроенный принтер"
+msgstr "Or click \"Print Directly\" to send directly to configured printer"
 
 msgid "For manual printing, transfer the .zpl file and send to Zebra printer using any method:"
-msgstr "Для ручной печати перенесите .zpl файл и отправьте на принтер Zebra любым способом:"
+msgstr "For manual printing, transfer the .zpl file and send to Zebra printer using any method:"
 
 msgid "Print via network (lpr command)"
-msgstr "Печать по сети (команда lpr)"
+msgstr "Print via network (lpr command)"
 
 msgid "Copy to shared folder"
-msgstr "Копирование в общую папку"
+msgstr "Copy to shared folder"
 
 msgid "Use Zebra printer software"
-msgstr "Использование ПО Zebra"
+msgstr "Use Zebra printer software"
 
 msgid "Plugin for generating ZPL labels for Zebra printers with QR codes and barcodes"
-msgstr "Плагин для генерации ZPL этикеток для принтеров Zebra с QR-кодами и штрих-кодами"
+msgstr "Plugin for generating ZPL labels for Zebra printers with QR codes and barcodes"
 
 msgid "QR Code Label"
-msgstr "QR-код этикетка"
+msgstr "QR Code Label"
 
 msgid "QR code contains scan URL for inventory updates"
-msgstr "QR-код содержит ссылку для сканирования и обновления инвентаризации"
+msgstr "QR code contains scan URL for inventory updates"
 
 msgid "Show ZPL code"
-msgstr "Показать ZPL код"
+msgstr "Show ZPL code"
 
 msgid "Download QR ZPL"
-msgstr "Скачать QR ZPL"
+msgstr "Download QR ZPL"
 
 msgid "Barcode Label"
-msgstr "Штрих-код этикетка"
+msgstr "Barcode Label"
 
 msgid "Barcode contains inventory number for quick scanning"
-msgstr "Штрих-код содержит инвентарный номер для быстрого сканирования"
+msgstr "Barcode contains inventory number for quick scanning"
 
 msgid "Download Barcode ZPL"
-msgstr "Скачать штрих-код ZPL"
+msgstr "Download Barcode ZPL"
 
 msgid "How to use"
-msgstr "Как использовать"
+msgstr "How to use"
 
 msgid "Click \"Download ZPL\" to save the label file"
-msgstr "Нажмите \"Скачать ZPL\" чтобы сохранить файл этикетки"
+msgstr "Click \"Download ZPL\" to save the label file"
 
 msgid "Asset information"
-msgstr "Информация об активе"
+msgstr "Asset information"
 
 msgid "Back to asset"
-msgstr "Назад к активу"
+msgstr "Back to asset"
 
 msgid "Invalid parameters"
-msgstr "Неверные параметры"
+msgstr "Invalid parameters"
 
 msgid "Object not found"
-msgstr "Объект не найден"
+msgstr "Object not found"
 
 msgid "Failed to generate label"
-msgstr "Не удалось сгенерировать этикетку"
+msgstr "Failed to generate label"
 
 msgid "Date of last physical inventory updated: %s"
-msgstr "Дата последней физической инвентаризации обновлена: %s"
+msgstr "Date of last physical inventory updated: %s"
 
 msgid "Error updating physical inventory date"
-msgstr "Ошибка обновления даты физической инвентаризации"
+msgstr "Error updating physical inventory date"
 
 msgid "Unsupported item type"
-msgstr "Неподдерживаемый тип объекта"
+msgstr "Unsupported item type"
 
 msgid "Invalid item type"
-msgstr "Неверный тип объекта"
+msgstr "Invalid item type"
 
 msgid "Printer ready"
-msgstr "Принтер готов"
+msgstr "Printer ready"
 
 msgid "Connection failed"
-msgstr "Ошибка подключения"
+msgstr "Connection failed"
 
 msgid "Invalid response from server"
-msgstr "Неверный ответ от сервера"
+msgstr "Invalid response from server"
 
 msgid "Connection test failed"
-msgstr "Тест подключения не удался"
+msgstr "Connection test failed"
 
 msgid "Some tests have warnings"
-msgstr "Некоторые тесты имеют предупреждения"
+msgstr "Some tests have warnings"
 
-# Новые строки
 msgid "Enter your Zebra printer IP address and port for direct printing"
-msgstr "Введите IP-адрес и порт вашего принтера Zebra для прямой печати"
+msgstr "Enter your Zebra printer IP address and port for direct printing"
 
 msgid "Note:"
-msgstr "Примечание:"
+msgstr "Note:"
 
 msgid "The printer must be accessible from the GLPI server. If printing fails, check firewall settings and network connectivity."
-msgstr "Принтер должен быть доступен с сервера GLPI. Если печать не удается, проверьте настройки брандмауэра и сетевое подключение."
+msgstr "The printer must be accessible from the GLPI server. If printing fails, check firewall settings and network connectivity."
 
 msgid "Enter the IP address and port of your Zebra printer"
-msgstr "Введите IP-адрес и порт вашего принтера Zebra"
+msgstr "Enter the IP address and port of your Zebra printer"
 
 msgid "Click \"Download ZPL\" to save the label file for manual printing"
-msgstr "Нажмите \"Скачать ZPL\" для сохранения файла этикетки для ручной печати"
+msgstr "Click \"Download ZPL\" to save the label file for manual printing"
 
 msgid "Or click \"Print Directly\" to send label directly to the printer"
-msgstr "Или нажмите \"Печатать напрямую\" для отправки этикетки прямо на принтер"
+msgstr "Or click \"Print Directly\" to send label directly to the printer"
 
 msgid "Status of the print job will be shown below"
-msgstr "Статус задания печати будет показан ниже"
+msgstr "Status of the print job will be shown below"
 
 msgid "For manual printing, you can:"
-msgstr "Для ручной печати вы можете:"
+msgstr "For manual printing, you can:"
 
 msgid "Use command: <code>lpr -S [printer_ip] -P raw [file.zpl]</code>"
-msgstr "Использовать команду: <code>lpr -S [printer_ip] -P raw [file.zpl]</code>"
+msgstr "Use command: <code>lpr -S [printer_ip] -P raw [file.zpl]</code>"
 
 msgid "Copy .zpl file to printer shared folder"
-msgstr "Скопировать .zpl файл в общую папку принтера"
+msgstr "Copy .zpl file to printer shared folder"
 
 msgid "Use Zebra Setup Utilities software"
-msgstr "Использовать ПО Zebra Setup Utilities"
+msgstr "Use Zebra Setup Utilities software"
 
 msgid "Printer Settings"
-msgstr "Настройки принтера"
+msgstr "Printer Settings"
 
 msgid "Example: 192.168.1.100 or zebra-printer.local"
-msgstr "Пример: 192.168.1.100 или zebra-printer.local"
+msgstr "Example: 192.168.1.100 or zebra-printer.local"
 
 msgid "Default port for Zebra printers is 9100"
-msgstr "Стандартный порт для принтеров Zebra - 9100"
+msgstr "Default port for Zebra printers is 9100"
+
+msgid "Enter your Zebra printer IP address and port"
+msgstr "Enter your Zebra printer IP address and port"
+
+msgid "Please enter printer IP address"
+msgstr "Please enter printer IP address"
+
+msgid "Unknown error"
+msgstr "Unknown error"
+
+msgid "Cannot connect to server"
+msgstr "Cannot connect to server"
