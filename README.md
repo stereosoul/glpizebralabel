@@ -1,5 +1,7 @@
 # GLPI Zebra Label Plugin
 
+-⚠️ Плагин разрабатывался и тестировался на Linux, на Windows установках не проверялся. ⚠️
+
 ![GLPI Zebra Label](https://img.shields.io/badge/GLPI-Плагин-orange)
 ![Лицензия](https://img.shields.io/badge/Лицензия-GPL--3.0--or--later-blue)
 ![Версия](https://img.shields.io/badge/Версия-1.0.2-green)
@@ -94,6 +96,7 @@ vibecoded by Aleksei Meshkov
     GitHub: @stereosoul
 
     Репозиторий: https://github.com/stereosoul/glpizebralabel
+
 
 
 
