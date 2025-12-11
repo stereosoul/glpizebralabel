@@ -7,7 +7,7 @@ function plugin_init_glpizebralabel() {
     global $PLUGIN_HOOKS;
 
     $PLUGIN_HOOKS['csrf_compliant']['glpizebralabel'] = true;
-    $PLUGIN_HOOKS['add_css']['glpizebralabel'] = 'glpizebralabel.css';
+    //$PLUGIN_HOOKS['add_css']['glpizebralabel'] = 'glpizebralabel.css';
 
     if (Plugin::isPluginActive('glpizebralabel')) {
         
